@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  mobile    String?  @unique @db.Char(20)
+  name      String?
+  password  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Topic     Topic[]
+  sex       Int?     @default(0)
+  freezed   Boolean? @default(false)
+  userId    String   @unique @default(uuid()) @db.Char(60)
+  username  String?  @db.Text
+  words     words[]
+}
+
+model Tag {
+  id        Int        @id @default(autoincrement()) @db.UnsignedInt
+  title     String
+  cover     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  TopicTag  TopicTag[]
+}
+
+model Topic {
+  id        Int        @id @default(autoincrement()) @db.UnsignedInt
+  title     String
+  content   String     @db.Text
+  extraData String?    @db.Text
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  TopicTag  TopicTag[]
+  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int        @db.UnsignedInt
+}
+
+model TopicTag {
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     Int      @db.UnsignedInt
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId   Int      @db.UnsignedInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([tagId, topicId])
+}
+
+model words {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  author    String?  @db.Text
+  title    String?  @db.Text
+  content   String   @db.Text
+  book_name String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @db.UnsignedInt
+}
