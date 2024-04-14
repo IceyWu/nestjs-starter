@@ -2,7 +2,6 @@
   "name": "nestjs-starter",
   "version": "0.0.1",
   "description": "",
-  "author": "",
   "private": true,
   "license": "UNLICENSED",
   "prisma": {
@@ -22,7 +21,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "pm2": "pm2 start --name nest dist/main.js"
+    "pm2": "pm2 start --name nest dist/main.js",
+    "release": "plop --plopfile scripts/release.cjs"
   },
   "dependencies": {
     "@alicloud/dysmsapi20170525": "^2.0.24",
@@ -51,22 +51,29 @@
     "blurhash": "^2.0.5",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "^2.0.0",
+    "changelogen": "^0.5.5",
+    "child_process": "^1.0.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "consola": "^3.2.3",
     "dayjs": "^1.11.10",
     "express": "^4.18.3",
+    "kolorist": "^1.8.0",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
     "multer": "1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "picocolors": "^1.0.0",
+    "plop": "^4.0.1",
     "prisma-binding": "^2.3.16",
     "redis": "^4.6.13",
     "reflect-metadata": "^0.2.1",
     "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
     "sharp": "^0.33.0",
+    "simple-git": "^3.24.0",
     "socket.io": "^4.7.2",
     "swagger-ui-express": "^5.0.0",
     "ws": "^8.14.2"
@@ -104,6 +111,10 @@
     "tsconfig-paths": "4.2.0",
     "typescript": "~5.3.3"
   },
+  "repository": {
+    "url": "https://github.com/IceyWu/nestjs-starter"
+  },
+  "author": "IceyWu <https://github.com/IceyWu/>",
   "jest": {
     "moduleFileExtensions": [
       "js",

@@ -8,6 +8,7 @@ import { AllExceptionsFilter } from './erroe-response.filters'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { apiReference } from '@scalar/nestjs-api-reference'
 import { WsAdapter } from './websocket/ws.adapter'
+import { showInfo } from '@/utils/info'
 
 async function bootstrap() {
   // 证书
@@ -61,6 +62,7 @@ async function bootstrap() {
   app.useWebSocketAdapter(new WsAdapter(app)) // 使用我们的适配器
 
   await app.listen(3001)
+  showInfo()
 }
 
 bootstrap()
