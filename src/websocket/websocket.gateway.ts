@@ -18,7 +18,7 @@ import { PrismaService } from './../prisma/prisma.service'
   cors: {
     origin: '*',
   },
-  port: 3003,
+  port: 3004,
   adapter: new IoAdapter(createServer()),
 })
 export class WsStartGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {

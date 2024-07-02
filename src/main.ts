@@ -9,6 +9,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { apiReference } from '@scalar/nestjs-api-reference'
 import { WsAdapter } from './websocket/ws.adapter'
 import { showInfo } from '@/utils/info'
+import { prefixName, portVal } from '@/utils/envEnum'
 
 async function bootstrap() {
   // 证书
@@ -23,24 +24,20 @@ async function bootstrap() {
 
   // 处理跨域
   app.enableCors({
-    // origin: origins,
     origin: '*',
-
     credentials: true,
-
     // "allowedHeaders":['Authorization','content-type'],
-
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-
     preflightContinue: false,
-
     optionsSuccessStatus: 204,
   })
-  app.setGlobalPrefix('nestTemplate')
+  // 接口前缀
+  app.setGlobalPrefix(prefixName)
+  // 接口文档
   const options = new DocumentBuilder()
     .setTitle('nestjs-dev接口文档')
     .setDescription('By IceyWu')
-    .setVersion('1.0.0')
+    .setVersion('0.0.1')
     .build()
   const document = SwaggerModule.createDocument(app, options)
   // SwaggerModule.setup('/api-docs', app, document)
@@ -60,8 +57,7 @@ async function bootstrap() {
   app.useStaticAssets('uploads', { prefix: '/uploads' })
   app.useStaticAssets('assets', { prefix: '/assets' })
   app.useWebSocketAdapter(new WsAdapter(app)) // 使用我们的适配器
-
-  await app.listen(3001)
+  await app.listen(portVal)
   showInfo()
 }
 

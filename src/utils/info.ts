@@ -1,4 +1,5 @@
 import picocolors from 'picocolors'
+import {  portVal } from '@/utils/envEnum'
 
 export const showInfo = () => {
   const { green, blue, bold, underline } = picocolors
@@ -15,7 +16,7 @@ export const showInfo = () => {
   console.log(
     bold(
       green(
-        `🎉${blue('[API-doc]')}: ${underline('http://localhost:3001/reference')}
+        `🎉${blue('[API-doc]')}: ${underline(`http://localhost:${portVal}/reference`)}
     `,
       ),
     ),
